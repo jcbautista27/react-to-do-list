@@ -8,12 +8,16 @@ export const TodoList = ({
 }) => {
   return (
     <ul>
-      <TodoItem
-        todos={todos}
-        handleUpdateTodo={handleUpdateTodo}
-        handleDeleteTodo={handleDeleteTodo}
-        handleCompleteTodo={handleCompleteTodo}
-      />
+      {todos.map(todo => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          handleUpdateTodo={handleUpdateTodo}
+          handleDeleteTodo={handleDeleteTodo}
+          handleCompleteTodo={handleCompleteTodo}
+        />
+      ))}
+
     </ul>
   );
 };
