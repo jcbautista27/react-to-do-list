@@ -1,10 +1,24 @@
 import React from "react";
+import { useForm } from "../hooks/useForm";
 
-export const TodoAdd = () => {
+export const TodoAdd = ({ handleNewTodo }) => {
+  const { description, onInputChange, onResetForm } = useForm({
+    description: "",
+  });
 
-  const onFormSubmit = e => {
-    e.preventDefault()
-  }
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (description.length <= 1) return;
+
+    let newTodo = {
+      id: new Date().getTime(),
+      description: description,
+      done: false,
+    };
+    handleNewTodo(newTodo);
+    onResetForm();
+  };
 
   return (
     <form onSubmit={onFormSubmit}>
@@ -12,8 +26,9 @@ export const TodoAdd = () => {
         type="text"
         className="input-add"
         name="description"
-        value="Aprender Php"
-        placeholder="¿Que hay que hacer?"
+        value={description}
+        onChange={onInputChange}
+        placeholder='¿Qué hay que hacer?'
       />
 
       <button className="btn-add" type="submit">
